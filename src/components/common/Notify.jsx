@@ -17,7 +17,7 @@ export default function Notify(Props) {
   }, []);
 
   return (
-    <div className="sticky w-full bottom-4 flex justify-center">
+    <div className="fixed w-full bottom-4 flex justify-center">
       <Alert severity={severity} className={className}>
         {notication}
       </Alert>

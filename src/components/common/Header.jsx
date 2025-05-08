@@ -17,16 +17,8 @@ export default function Header() {
     pathname.endsWith("login") || pathname.endsWith("signup")
   ) ? (
     <div className="flex gap-2">
-      <Button
-        buttonText="Login"
-        className="uppercase"
-        onClick={() => navigate("/login")}
-      />
-      <Button
-        buttonText="Signup"
-        className="uppercase"
-        onClick={() => navigate("/signup")}
-      />
+      <Button buttonText="Login" onClick={() => navigate("/login")} />
+      <Button buttonText="Signup" onClick={() => navigate("/signup")} />
     </div>
   ) : null;
 
@@ -68,11 +60,7 @@ export default function Header() {
       </div>
       <div>
         {isAuthenticated ? (
-          <Button
-            buttonText="Logout"
-            className="uppercase"
-            onClick={handleLogout}
-          />
+          <Button buttonText="Logout" onClick={handleLogout} />
         ) : (
           showLoginAndSignupButton
         )}
