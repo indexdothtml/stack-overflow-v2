@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { useNotify } from "../../hooks/useNotify";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -5,6 +7,7 @@ export default function FormContainer(Props) {
   const { children, submitHandler = () => {}, submittedFrom } = Props;
   const { showNotification } = useNotify();
   const { dispatchUserLogin } = useAuth();
+  const navigate = useNavigate();
 
   // This function will handle form submittion, checks from which page the request came with the help of submittedFrom variable and request for service according to that.
   const onSubmit = async (data) => {
@@ -16,6 +19,7 @@ export default function FormContainer(Props) {
         // Alert user about requested status whether it is success or fail.
         if (response.data) {
           showNotification(response.message);
+          navigate("/dashboard");
         } else {
           showNotification(response.message, "error");
         }
