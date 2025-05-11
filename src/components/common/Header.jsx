@@ -30,6 +30,7 @@ export default function Header() {
     // Alert user about requested status.
     if (response.data) {
       showNotification(response.message);
+      navigate("/");
     } else {
       showNotification(response.message, "error");
     }
