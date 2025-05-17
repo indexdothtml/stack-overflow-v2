@@ -1,14 +1,16 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { useNotify } from "../../hooks/useNotify";
 import { useAuth } from "../../hooks/useAuth";
 import service from "../../services/service";
 
+// FormContainer component can handle inputs submitted by different pages, when it is used in that page.
 export default function FormContainer(Props) {
   const { children, submitHandler = () => {}, submittedFrom } = Props;
   const { showNotification } = useNotify();
   const { dispatchUserLogin } = useAuth();
   const navigate = useNavigate();
+  const [resetLinkParams] = useSearchParams();
 
   // This function will handle form submittion, checks from which page the request came with the help of submittedFrom variable and request for service according to that.
   const onSubmit = async (data) => {
@@ -38,6 +40,34 @@ export default function FormContainer(Props) {
           navigate("/login");
         } else {
           showNotification(res.message, "error");
+        }
+        break;
+
+      case "resetPasswordInit":
+        const initToken = await service.initResetPassword(data.email);
+
+        if (initToken.response) {
+          showNotification(
+            "If you have account with us, then you will receive email for resetting password. :)"
+          );
+        } else {
+          showNotification(initToken.message, "error");
+        }
+        break;
+
+      case "resetPasswordConfirm":
+        const userId = resetLinkParams.get("userId");
+        const secret = resetLinkParams.get("secret");
+        const confToken = await service.confirmResetPassword(
+          userId,
+          secret,
+          data.password
+        );
+
+        if (confToken.response) {
+          showNotification("Password reset successful :)");
+        } else {
+          showNotification(confToken.message, "error");
         }
         break;
 

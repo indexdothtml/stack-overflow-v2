@@ -127,7 +127,7 @@ class Service {
         } else {
           return {
             response: null,
-            message: token.message,
+            message: String(token.message),
           };
         }
       } else {
@@ -161,7 +161,7 @@ class Service {
         } else {
           return {
             response: null,
-            message: token.message,
+            message: String(token.message),
           };
         }
       } else {
