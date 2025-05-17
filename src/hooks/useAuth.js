@@ -61,10 +61,25 @@ export function useAuth() {
     }
   };
 
+  // This function used to get current active user session and dispatch response to store.
+  const dispatchCurrentActiveUser = async () => {
+    const user = await service.currentUser();
+    if (user.response) {
+      dispatch(login(user.response));
+
+      return true;
+    } else {
+      dispatch(logout());
+
+      return false;
+    }
+  };
+
   return {
     isAuthenticated,
     userData,
     dispatchUserLogin,
     dispatchUserLogout,
+    dispatchCurrentActiveUser,
   };
 }

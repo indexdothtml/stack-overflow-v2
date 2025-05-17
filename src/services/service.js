@@ -26,7 +26,7 @@ class Service {
       } else {
         return {
           response: null,
-          message: user.message,
+          message: String(user.message),
         };
       }
     } catch (error) {
