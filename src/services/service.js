@@ -77,24 +77,28 @@ class Service {
 
   async userSignup(email, password, name) {
     try {
-      if (validateEmail(email) && validatePassword(password)) {
+      const isValidEmail = validateEmail(email);
+      const isValidPassword = validatePassword(password);
+      if (isValidEmail && isValidPassword) {
         const userId = ID.unique();
         const user = await this.account.create(userId, email, password, name);
         if (user.$id) {
           return {
             response: user,
-            message: "ok",
+            message: `Hi ${name}, your account is created :) please login now.`,
           };
         } else {
           return {
             response: null,
-            message: user.message,
+            message: String(user.message),
           };
         }
       } else {
         return {
           response: null,
-          message: "Please enter valid email and password.",
+          message: !isValidEmail
+            ? "Please enter valid email address."
+            : "Please enter strong password.",
         };
       }
     } catch (error) {
