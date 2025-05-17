@@ -19,7 +19,16 @@ export function validatePassword(password = "") {
     return false;
   }
 
-  const passwordPatternRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  /*
+  Below regix pattern checks for string which follows below rules.
+    At least 8 characters long.
+    Contains at least one lowercase letter.
+    Contains at least one uppercase letter.
+    Contains at least one digit.
+    Contains at least one special character from the set @$!%*?&.
+  */
+  const passwordPatternRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
   const isPasswordValid = passwordPatternRegex.test(password);
 

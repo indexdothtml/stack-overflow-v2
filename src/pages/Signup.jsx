@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import { FormContainer, Button } from "../components/common/index";
 
 export default function Signup() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm();
 
   return (
     <FormContainer submitHandler={handleSubmit} submittedFrom="signup">
@@ -33,7 +37,12 @@ export default function Signup() {
         {...register("password", { required: true })}
       />
 
-      <Button buttonType="submit" buttonText="Signup" className="w-52" />
+      <Button
+        buttonType="submit"
+        buttonText="Signup"
+        disable={isSubmitting}
+        className="w-52"
+      />
 
       <p className="text-sm">
         Already have an account?{" "}

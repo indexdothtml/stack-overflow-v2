@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useNotify } from "../../hooks/useNotify";
 import { useAuth } from "../../hooks/useAuth";
+import service from "../../services/service";
 
 export default function FormContainer(Props) {
   const { children, submitHandler = () => {}, submittedFrom } = Props;
@@ -26,9 +27,18 @@ export default function FormContainer(Props) {
         break;
 
       case "signup":
-        console.log(data.name);
-        console.log(data.email);
-        console.log(data.password);
+        const res = await service.userSignup(
+          data.email,
+          data.password,
+          data.name
+        );
+
+        if (res.response) {
+          showNotification(res.message);
+          navigate("/login");
+        } else {
+          showNotification(res.message, "error");
+        }
         break;
 
       default:
