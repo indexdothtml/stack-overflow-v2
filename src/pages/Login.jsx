@@ -23,7 +23,7 @@ export default function Login() {
 
       <div>
         <p className="text-xs flex justify-end mb-1 text-blue-400">
-          <Link to="#">forgot password?</Link>
+          <Link to="/resetPassword/init">forgot password?</Link>
         </p>
         <TextField
           variant="outlined"
